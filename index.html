@@ -63,7 +63,6 @@
 	</style>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -103,28 +102,120 @@
 	<input type="submit" id="lisa_kat" value="lisa kateg">
 	
 	<!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createTopicModal">Create new topic Modal</button>
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createPostModal">Create new Post Modal</button>
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#viewPostModal">View Post Modal</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+    
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>Some text in the modal.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+      
+		</div>
+	</div>	
+	
+	  
+	<!-- Create Topic Modal -->
+	<div class="modal fade" id="createTopicModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+        <div class="modal-header" style="padding:35px 50px; text-align:center; background-color:white; font-size:30px;">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Loo uus kategooria</h4>
         </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
+        <div class="modal-body" style="height:200px; padding:50px 50px; position:center;">
+		
+			<form role="form" >
+				<div class="form-group" >
+					<label for="kategooriaNimi" >Kategooria Pealkiri</label> 
+					<input type="text" class="form-control" id="kategooriaNimi" placeholder="Sisesta pealkiri">
+				</div>
+			</form>
+			
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="modal-footer" style="padding:40px 50px;">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="align:center;">Teine tekst</button>
         </div>
-      </div>
-      
+    </div>  
     </div>
-  </div>	
+	</div>	
+	
+	
+	<!-- Create Post Modal -->
+	<div class="modal fade" id="createPostModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color:white;">
+        <div class="modal-header" style="padding:35px 50px; text-align:center; background-color:white; font-size:30px;">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Loo uus kategooria</h4>
+        </div>
+        <div class="modal-body" style="height:400px; padding:50px 50px; position:center; background-color:white;">
+		
+			<form role="form" >
+				<div class="form-group" >
+					<label for="kategooriaNimi" >Kategooria Pealkiri</label> 
+					<input type="text" class="form-control" id="kategooriaNimi" placeholder="Sisesta pealkiri">
+				</div>
+				<!-- Text area -->
+				<div class="form-group" >
+					<label for="sisuAla" >Sisu:</label> 
+					<textarea class="form-control" rows="5" id="sisuAla"></textarea>
+				</div>
+			</form>
+			
+        </div>
+        <div class="modal-footer" style="padding:40px 50px; background-color:white;">
+			<button type="button" class="btn btn-default" data-dismiss="modal" style="align:center;">Teine tekst</button>
+        </div>
+    </div>  
+    </div>
+	</div>
+	
+	
+	<!-- View Post Modal -->
+	<div class="modal fade" id="viewPostModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px; text-align:center; background-color:white; font-size:30px;">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Loo uus kategooria</h4>
+        </div>
+        <div class="modal-body" style="height:200px; padding:50px 50px; position:center;">
+		
+			<form role="form" >
+				<div class="form-group" >
+					<label for="kategooriaNimi" >Kategooria Pealkiri</label> 
+					<input type="text" class="form-control" id="kategooriaNimi" placeholder="Sisesta pealkiri">
+				</div>
+			</form>
+			
+        </div>
+        <div class="modal-footer" style="padding:40px 50px;">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="align:center;">Teine tekst</button>
+        </div>
+    </div>  
+    </div>
+	</div>
 	
 	<script>
 		$( document ).ready(function() {
