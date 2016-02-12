@@ -10,11 +10,14 @@
 		}
 		.container{
 			overflow-x: scroll;
+			max-height: '120px';
+			
 		}
 		.container > div{
 			background-color: aliceblue;
 		}
 		#raam{
+			
 			background-color: lightgoldenrodyellow;
 			padding: 0px;
 			margin: 0px;
@@ -38,16 +41,24 @@
 		}
 		
 		.kateg{
-			height: 100%;
+			height: 50px;
+			width: 100px;
 			display: inline-block;
+			float: left;
 		}
 
 		.sisu{
-			height: 100%;
+			height: 100px;
+			width: 100px;
 			display: inline-block;
-			padding: 25px;
+			padding: 25px solid;
+			float:left;
 		}
-
+		.cont{
+			width:'600px';
+			overflow:auto;
+			border: 1px solid;
+		}
 	</style>
 </head>
 <body>
@@ -63,21 +74,25 @@
 	</div>
 	<div id="raam">
 		<div class="container">
-			<div class="kateg">Kategooria 1</div>
+			<div class="cont">
+				<div class="kateg">Kategooria 1</div>
 				<div class="sisu">Sisu1</div>
 				<div class="sisu">Sisu2</div>
 				<div class="sisu">Sisu3</div>
 				<div class="sisu">Sisu4</div>
 				<input type="submit" class="lisa_sisu" value="lisa sisu">
+			</div>
 		</div>
 
 		<div class="container">
-			<div class="kateg">Kategooria 2</div>
+		<div class="cont">
+				<div class="kateg">Kategooria 2</div>
 				<div class="sisu">Sisu2.1</div>
 				<div class="sisu">Sisu2</div>
 				<div class="sisu">Sisu3</div>
 				<div class="sisu">Sisu4</div>
 				<input type="submit" class="lisa_sisu" value="lisa sisu">
+			</div>
 		</div>
 	</div>
 	<input type="submit" id="lisa_kat" value="lisa kateg">
@@ -97,6 +112,7 @@
 				console.log('clickd');
 				$(this).parent().append($('.sisu').first().clone(true, true));
 				$(this).appendTo($(this).parent());
+				$(this).parent(".cont").css("width","+=110");
 			});
 
 		});
