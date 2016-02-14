@@ -4,15 +4,21 @@
 	<meta charset='utf-8'>
 	<style type="text/css">
 		div{
-			background-color: grey;
+			background-color: lightgreen;
 			border-radius: 10px;
 			margin: 5px;
 		}
 		.container{
-			overflow-x: scroll;
-			max-height: '120px';
+			 overflow-x: scroll;
+			 max-height: '120px';
 
 		}
+
+		.container_lingid{
+			max-height: '40px';
+
+		}
+
 		.container > div{
 			background-color: aliceblue;
 		}
@@ -29,9 +35,15 @@
 			margin: 0px;
 		}
 
+		#lingid{
+			padding: 0px;
+			margin: 5px;
+		}
+
 		#logo{
 			float: left;
 			font-weight: bold;
+			font-size: large;
 		}
 		form{
 			float: right;
@@ -40,13 +52,20 @@
 			width: 100px;
 		}
 
+		.cont_lingid{
+			width:'600px';
+			overflow:auto;
+			border: 1px solid;
+		}
+
 		.kateg{
 			height: 100px;
 			width: 100px;
 			display: inline-block;
 			float: left;
 			transform: rotate(270deg);
-			text-align:center;
+			text-align: center;
+			background-color: forestgreen;
 		}
 
 		.sisu{
@@ -67,14 +86,27 @@
 <body>
 
 	<div id="päis">
-		<div id="logo">Logo vms</div>
+		<div id="logo">BillboardX</div>
 		<form>
 			<input type="text" name="kasutaja" placeholder="Kasutaja">
 			<input type="password" name="parool" placeholder="Parool">
 			<input type="submit" value="Sisene">
+			<a href="" style="color: black">Registreeru</a>
 		</form>
 
 	</div>
+
+	<div id="lingid">
+		<div class="container_lingid" align="center">
+			<div class="cont_lingid">
+				<a href="" style="color: black">Reeglid</a>
+				<a href="" style="color: black">Info</a>
+				<a href="" style="color: black">KKK</a>
+				<a href="" style="color: black">Kontakt</a>
+			</div>
+		</div>
+	</div>
+
 	<div id="raam">
 		<div class="container">
 			<div class="cont">
@@ -90,36 +122,36 @@
 		<div class="container">
 		<div class="cont">
 				<div class="kateg">Kategooria 2</div>
-				<div class="sisu">Sisu2.1</div>
-				<div class="sisu">Sisu2</div>
-				<div class="sisu">Sisu3</div>
-				<div class="sisu">Sisu4</div>
-				<input type="submit" class="lisa_sisu" value="lisa sisu">
-			</div>
-		</div>
-	</div>
-	<input type="submit" id="lisa_kat" value="lisa kateg">
+			<div class="sisu">Sisu2.1</div>
+            <div class="sisu">Sisu2</div>
+            <div class="sisu">Sisu3</div>
+            <div class="sisu">Sisu4</div>
+            <input type="submit" class="lisa_sisu" value="lisa sisu">
+        </div>
+    </div>
+</div>
+<input type="submit" id="lisa_kat" value="lisa kategooria">
 
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script>
-		$( document ).ready(function() {
-			//kloonin #raam-le esimese .containeri
-			$('#lisa_kat').click(function () {
-				$("#raam").append($('.container').first().clone(true, true));
-			});
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        //kloonin #raam-le esimese .containeri
+        $('#lisa_kat').click(function () {
+            $("#raam").append($('.container').first().clone(true, true));
+        });
 
-			//kloonin klikitud vanema sisse(lõppu) esimese sisu
-			//ja siis panen nupu uuesti lõppu
-			$('.lisa_sisu').click(function () {
-				console.log('clickd');
-				$(this).parent().append($('.sisu').first().clone(true, true));
-				$(this).appendTo($(this).parent());
-				$(this).parent(".cont").css("width","+=110");
-			});
+        //kloonin klikitud vanema sisse(lõppu) esimese sisu
+        //ja siis panen nupu uuesti lõppu
+        $('.lisa_sisu').click(function () {
+            console.log('clickd');
+            $(this).parent().append($('.sisu').first().clone(true, true));
+            $(this).appendTo($(this).parent());
+            $(this).parent(".cont").css("width","+=110");
+        });
 
-		});
-	</script>
+    });
+</script>
 </body>
 </html>
