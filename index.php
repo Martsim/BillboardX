@@ -114,8 +114,14 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             border: 1px solid;
             display: flex;
         }
-        .pealkiri{
+        .sisu_pealkiri{
             font-weight: bold;
+        }
+        .sisu_autor{
+            font-style: italic;
+        }
+        .sisu_tekst{
+            
         }
         #postita_nupp{
             border: 1px solid black;
@@ -233,7 +239,8 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             foreach($sisud as $sis){
                 if($sis['kat_id'] == $kategooria_id){
                     echo "<div class='sisu'>";
-                    echo "<p class ='pealkiri'>".$sis['pealkiri']."</p>";
+                    echo "<p class ='sisu_pealkiri'>".$sis['pealkiri']."</p>";
+                    echo "<p class ='sisu_autor'>".$sis['autor']."</p>";
                     echo '<div class = "sisu_tekst">'.$sis['sisu'].'</div>';
 
                     echo "</div>";
