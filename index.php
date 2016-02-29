@@ -8,6 +8,9 @@ include('connect.php');
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try {
+        $kasutaja = $_POST["kasutaja"];
+        $parool = md5($_POST["parool"])
+        
         $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja and parool = :parool");
         $sth->bindParam(':kasutaja', $kasutaja);
         $sth->bindParam(':parool', $parool);
