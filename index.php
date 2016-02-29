@@ -2,19 +2,12 @@
 // enable sessions
 session_start();
 //header('Content-Type: text/html; charset=UTF-8');
+//andmebaasiga ühendamine:
+include('connect.php');
 
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try {
-        $kasutaja = $_POST["kasutaja"];
-        $parool = md5($_POST["parool"]);
-        //andmed AB-ga ühenduse loomiseks
-        $host = "localhost";
-        $user = 'infoorum_rauno';
-        $pass = 'k33ruline';
-        $database = "infoorum_db";
-
-        $pdo = new PDO("mysql:host=$host;dbname=$database;", $user, $pass);
         $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja and parool = :parool");
         $sth->bindParam(':kasutaja', $kasutaja);
         $sth->bindParam(':parool', $parool);
@@ -39,6 +32,8 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     }catch(PDOException $e) {
         echo 'ERROR: ' . $e->getMessage();
     }
+}else if(!isset($_SESSION["melditud"])){
+    echo "Esines tühja välja";
 }
 ?>
 <!DOCTYPE html>
@@ -49,25 +44,33 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </head>
 <body>
 <div id="päis">
-    <div id="logo">Infoorum</div>
+    <a id="logo" href="index.php">Infoorum</a>
     <!-- see on tume taust pop_up(modal)'i jaoks: -->
     <div id="tume_taust"></div>
 
     <?php
     //kui on toimunud edukas sisselogimine, näita sisse loginud kasutajale:
     if (isset($_SESSION["melditud"]) && $_SESSION["melditud"] == true){
+        //leian kõik kategooriad, salvestan array-na $tulemusse
+        $sth = $pdo->prepare("SELECT id, nimi FROM kategooria");
+        $sth->execute();
+        $tulemus = $sth->fetchAll();
+
         echo "<div style = 'float: right;'>Oled sisse logitud, ".$_SESSION['kasutaja']." <a href='logout.php'>Logi välja</a></div>";
         echo "<div id = 'postita_nupp'>Postita</div>";
         echo"<form id='pop_up'>
                 <a href='#' id='sule_aken'>Sule aken</a><br>
-                <input type='text' name='kat_id' placeholder='Kategooria ID(täisarv)'><br>
+                <select name='kat_id'>";
+                foreach($tulemus as $t){
+                    echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
+                }
+        echo "</select><br>
                 <input type='text' name='pealkiri' placeholder='Pealkiri'><br>
                 <label for='sisu_lisamine'>Sisu</label><br>
-                <textarea form='pop_up' name = 'sisu' id='sisu_lisamine' rows='4' cols='50'></textarea><br>
-                <input type='text' style='display:none' name='autor' value='".$_SESSION["kasutaja"]."'>
+                <textarea form='pop_up' name = 'sisu' id='sisu_lisamine' rows='4' cols='50'></textarea><div id='counter'>0</div><br>
                 <input type='submit' value='Postita'><br>
 
-            </form>";//halb lahendus: seda vormi saab kasutaja muuta, niiet siin saaks ta autorit määrata ükskõik kelleks; autorit oleks vaja määrata teisiti
+            </form>";
 
     }else{//Log-in form:
         echo'
@@ -103,8 +106,6 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     $database = "infoorum_db";
 
     try{
-        $pdo = new PDO("mysql:host=$host;dbname=$database;", $user, $pass);
-
         $sth = $pdo->prepare("SELECT * FROM kategooria");
         $sth->execute();
         $kategooriad = $sth->fetchAll();
@@ -148,17 +149,6 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                 <input type="submit" class="lisa_sisu" value="lisa sisu">
             </div>
         </div>
-
-        <div class="container">
-            <div class="cont">
-                <div class="kateg">Kategooria 2</div>
-                <div class="sisu">Sisu2.1</div>
-                <div class="sisu">Sisu2</div>
-                <div class="sisu">Sisu3</div>
-                <div class="sisu">Sisu4</div>
-                <input type="submit" class="lisa_sisu" value="lisa sisu">
-            </div>
-        </div>
     </div>
     <input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
@@ -192,6 +182,10 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                     }
 
                 });
+            });
+
+            $('#sisu_lisamine').keyup(function(){
+                $("#counter").text($(this).val().length);
             });
         });
     </script>
