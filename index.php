@@ -8,7 +8,7 @@ include('connect.php');
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try{
-        $kasutaja = $_POST["kasutaja"];
+    	$kasutaja = $_POST["kasutaja"];
         $parool = md5($_POST["parool"]);
   
         $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja and parool = :parool");
@@ -102,7 +102,9 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 <div id="raam">
 
     <?php
+    //
     //kategooriate/sisu laadimine AB-st
+    ///////////////////////////////////
     $host = "localhost";
     $user = 'infoorum_rauno';
     $pass = 'k33ruline';
@@ -130,7 +132,8 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                     echo "<p class ='sisu_pealkiri'>".$sis['pealkiri']."</p>";
                     echo "<p class ='sisu_autor'>".$sis['autor']."</p>";
                     echo '<div class = "sisu_tekst">'.$sis['sisu'].'</div>';
-                    if(!empty($_SESSION["kasutaja"]) && $_SESSION["kasutaja"] == $sis['autor']){
+                    //case insensitive comparing(strcasecmp)
+                    if(!empty($_SESSION["kasutaja"]) && strcasecmp ($_SESSION["kasutaja"], $sis['autor']) == 0){
                         echo "<a class='kustuta_nupp' href='kustuta.php?id=".$sis['id']."'>Kustuta postitus</a>";
                     }
 
