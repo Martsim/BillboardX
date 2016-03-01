@@ -7,10 +7,10 @@ include('connect.php');
 
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
-    try {
+    try{
         $kasutaja = $_POST["kasutaja"];
-        $parool = md5($_POST["parool"])
-        
+        $parool = md5($_POST["parool"]);
+  
         $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja and parool = :parool");
         $sth->bindParam(':kasutaja', $kasutaja);
         $sth->bindParam(':parool', $parool);
@@ -35,9 +35,9 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     }catch(PDOException $e) {
         echo 'ERROR: ' . $e->getMessage();
     }
-}else if(!isset($_SESSION["melditud"])){
-    echo "Esines tühja välja";
 }
+//else if(!isset($_SESSION["melditud"]) && (empty($_POST["kasutaja"]) || empty($_POST["parool"]))) {
+   // echo "Esines tühja välja";}
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,7 +63,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         echo "<div id = 'postita_nupp'>Postita</div>";
         echo"<form id='pop_up'>
                 <a href='#' id='sule_aken'>Sule aken</a><br>
-                <select name='kat_id'>";
+       <a href='logout.php'>Logi välja</a>         <select name='kat_id'>";
                 foreach($tulemus as $t){
                     echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
                 }
@@ -130,6 +130,9 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                     echo "<p class ='sisu_pealkiri'>".$sis['pealkiri']."</p>";
                     echo "<p class ='sisu_autor'>".$sis['autor']."</p>";
                     echo '<div class = "sisu_tekst">'.$sis['sisu'].'</div>';
+                    if(!empty($_SESSION["kasutaja"]) && $_SESSION["kasutaja"] == $sis['autor']){
+                        echo "<a class='kustuta_nupp' href='kustuta.php?id=".$sis['id']."'>Kustuta postitus</a>";
+                    }
 
                     echo "</div>";
                 }
@@ -189,6 +192,12 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 
             $('#sisu_lisamine').keyup(function(){
                 $("#counter").text($(this).val().length);
+            });
+            
+            $('.kustuta_nupp').on('click', function(e){
+                if(!confirm("Tahad oma postitust kustutada?")){
+                    e.preventDefault();
+                }
             });
         });
     </script>
