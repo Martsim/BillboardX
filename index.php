@@ -42,6 +42,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Infoorum</title>
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -161,7 +162,14 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     </div>
     <input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- Added cdn check.-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script>
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Cscript src='/jquery-2.2.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+
     <script>
         $( document ).ready(function() {
             $('#postita_nupp').on('click', function(event){
