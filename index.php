@@ -40,8 +40,9 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
    // echo "Esines tühja välja";}
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et" lang="et">
 <head>
+    <title>Infoorum</title>
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -68,6 +69,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                     echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
                 }
         echo "</select><br>
+                <label for='pealkiri'>Pealkiri</label><br>
                 <input type='text' name='pealkiri' placeholder='Pealkiri'><br>
                 <label for='sisu_lisamine'>Sisu</label><br>
                 <textarea form='pop_up' name = 'sisu' id='sisu_lisamine' rows='4' cols='50'></textarea><div id='counter'>0</div><br>
@@ -78,8 +80,10 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     }else{//Log-in form:
         echo'
         <form method="post" action="index.php">
-            <input type="text" name="kasutaja" placeholder="Kasutaja">
-            <input type="password" name="parool" placeholder="Parool">
+            <label for="kasutaja">Kasutaja: </label>
+            <input type="text" name="kasutaja" placeholder="Kasutaja" id="kasutaja">
+            <label for="parool">Parool: </label>
+            <input type="password" name="parool" placeholder="Parool" id="parool">
             <input type="submit" value="Sisene">
         <a href="#" >Registreeru</a>
     </form>
@@ -161,7 +165,14 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     </div>
     <input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- Added cdn check.-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script>
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Cscript src='/jquery-2.2.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+
     <script>
         $( document ).ready(function() {
             $('#postita_nupp').on('click', function(event){

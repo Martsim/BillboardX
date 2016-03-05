@@ -1,5 +1,5 @@
         div{
-            background-color: lightgreen;
+            background-color: #FFE1E1;
             border-radius: 10px;
             margin: 5px;
         }
@@ -10,10 +10,10 @@
             max-height: 40px;
         }
         .container > div{
-            background-color: aliceblue;
+            background-color: #0A64B3;
         }
         #raam{
-            background-color: lightgoldenrodyellow;
+            background-color: #141BBF;
             padding: 0;
             margin: 0;
         }
@@ -28,7 +28,9 @@
         #logo{
             float: left;
             font-weight: bold;
-            font-size: large;
+            font-size: xx-large;
+            font-family: "Arial", Times, Sans-serif;
+            font-style: normal;
             text-decoration: none;
             color: black;
         }
@@ -54,7 +56,7 @@
             display: inline-block;
             transform: rotate(270deg);
             text-align: center;
-            background-color: forestgreen;
+            background-color: white;
         }
         .sisu{
             height: 150px;
@@ -71,16 +73,18 @@
         }
         .sisu_pealkiri{
             font-weight: bold;
+            color: black;
         }
         .sisu_autor{
             font-style: italic;
         }
         .sisu_tekst{
-
+            color: black;
         }
         #postita_nupp{
-            border: 1px solid black;
-            background-color: darkolivegreen;
+            color: white;
+    	    border: 1px solid black;
+    	    background-color: #0726B3;
             float: right;
             padding: 15px;
         }
