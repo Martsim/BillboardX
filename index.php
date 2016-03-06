@@ -64,7 +64,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         echo "<div id = 'postita_nupp'>Postita</div>";
         echo"<form id='pop_up'>
                 <a href='#' id='sule_aken'>Sule aken</a><br>
-       <a href='logout.php'>Logi välja</a>         <select name='kat_id'>";
+               <select name='kat_id'>";
                 foreach($tulemus as $t){
                     echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
                 }
@@ -93,7 +93,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 
 <div id="lingid">
-    <div class="container_lingid" align="center">
+    <div class="container_lingid">
         <div class="cont_lingid">
             <a href="#" >Reeglid</a>
             <a href="#" >Info</a>
@@ -151,7 +151,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         echo 'ERROR: ' . $e->getMessage();
     }
     ?>
-
+    </div>
     <!--    <div class="container">
             <div class="cont">
                 <div class="kateg">Kategooria 1</div>

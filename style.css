@@ -1,5 +1,5 @@
         div{
-            background-color: #FFE1E1;
+            background-color: #E3E1FF;
             border-radius: 10px;
             margin: 5px;
         }
@@ -45,18 +45,30 @@
             width: 200px;
         }
         .cont_lingid{
-            width: 600px;
-            overflow:auto;
-            border: 1px solid;
+            width: inherit;
+    	    overflow: auto;
+    	    border: 1px solid;
+    	    text-align: center;
         }
         .kateg{
-            height: 100px;
-            width: 100px;
-            padding: 12px;
-            display: inline-block;
-            transform: rotate(270deg);
-            text-align: center;
-            background-color: white;
+                height: 100px;
+    		float: left;
+   	 	width: 100px;
+    		padding: 15px;
+    		display: inline-block;
+    		transform: rotate(270deg);
+    		text-align: center;
+    		color: darkblue;
+    		font-weight: bold;
+    		font-size: x-large;
+    		font-family: "Arial", Times, Sans-serif;
+    		background-color: white;
+    		align-self: center;
+    		margin-right: 40px;
+    		margin-left: 40px;
+    		max-height: 140px;
+    		max-width: 140px;
+    		display: table;
         }
         .sisu{
             height: 150px;
@@ -65,11 +77,16 @@
             padding: 25px;
             float:left;
             text-align:center;
+            max-width: 500px;
+            display: table;
         }
+        
         .cont{
             overflow:auto;
             border: 1px solid;
             display: flex;
+            max-height: 300px;
+            min-height: 140px; 
         }
         .sisu_pealkiri{
             font-weight: bold;
@@ -80,6 +97,7 @@
         }
         .sisu_tekst{
             color: black;
+            display:table-cell;
         }
         #postita_nupp{
             color: white;
