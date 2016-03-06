@@ -8,9 +8,9 @@ include('connect.php');
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try{
-    	$kasutaja = $_POST["kasutaja"];
+        $kasutaja = $_POST["kasutaja"];
         $parool = md5($_POST["parool"]);
-  
+
         $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja and parool = :parool");
         $sth->bindParam(':kasutaja', $kasutaja);
         $sth->bindParam(':parool', $parool);
@@ -37,7 +37,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     }
 }
 //else if(!isset($_SESSION["melditud"]) && (empty($_POST["kasutaja"]) || empty($_POST["parool"]))) {
-   // echo "Esines tühja välja";}
+// echo "Esines tühja välja";}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et" lang="et">
@@ -60,14 +60,15 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         $sth->execute();
         $tulemus = $sth->fetchAll();
 
-        echo "<div style = 'float: right;'>Oled sisse logitud, ".$_SESSION['kasutaja']." <a href='logout.php'>Logi välja</a></div>";
+        echo "<div style = 'float: right;'>Oled sisse logitud, <span id='kasutaja'>".$_SESSION['kasutaja']."</span> <a href='logout.php'>Logi välja</a></div>";
         echo "<div id = 'postita_nupp'>Postita</div>";
+
         echo"<form id='pop_up'>
                 <a href='#' id='sule_aken'>Sule aken</a><br>
                <select name='kat_id'>";
-                foreach($tulemus as $t){
-                    echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
-                }
+        foreach($tulemus as $t){
+            echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
+        }
         echo "</select><br>
                 <label for='pealkiri'>Pealkiri</label><br>
                 <input type='text' name='pealkiri' placeholder='Pealkiri'><br>
@@ -85,7 +86,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             <label for="parool">Parool: </label>
             <input type="password" name="parool" placeholder="Parool" id="parool">
             <input type="submit" value="Sisene">
-        <a href="#" >Registreeru</a>
+        <a href="regamine.php" >Registreeru</a>
     </form>
         ';
     }
@@ -124,10 +125,11 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         $sisud = $sth->fetchAll();
 
         foreach($kategooriad as $kateg){
-            echo '<div class="container">
-                <div class="cont">
-                    <div class="kateg">'.$kateg['nimi'].'</div>';
             $kategooria_id = $kateg['id'];
+            echo '<div class="container">
+                <div class="cont" id = "'.$kategooria_id.'">
+                    <div class="kateg">'.$kateg['nimi'].'</div>';
+
 
             //ebeaefektiivne - iga kategooria korral käib sisu massiivi läbi
             foreach($sisud as $sis){
@@ -151,69 +153,114 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         echo 'ERROR: ' . $e->getMessage();
     }
     ?>
-    </div>
-    <!--    <div class="container">
-            <div class="cont">
-                <div class="kateg">Kategooria 1</div>
-                <div class="sisu">Sisu1</div>
-                <div class="sisu">Sisu2</div>
-                <div class="sisu">Sisu3</div>
-                <div class="sisu">Sisu4</div>
-                <input type="submit" class="lisa_sisu" value="lisa sisu">
-            </div>
+</div>
+<!--    <div class="container">
+        <div class="cont">
+            <div class="kateg">Kategooria 1</div>
+            <div class="sisu">Sisu1</div>
+            <div class="sisu">Sisu2</div>
+            <div class="sisu">Sisu3</div>
+            <div class="sisu">Sisu4</div>
+            <input type="submit" class="lisa_sisu" value="lisa sisu">
         </div>
     </div>
-    <input type="submit" id="lisa_kat" value="lisa kategooria">-->
+</div>
+<input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
-    <!-- Added cdn check.-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-    <script>
-        if (typeof jQuery == 'undefined') {
-            document.write(unescape("%3Cscript src='/jquery-2.2.1.min.js' type='text/javascript'%3E%3C/script%3E"));
-        }
-    </script>
+<!-- Added cdn check.-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script>
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/jquery-2.2.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
 
-    <script>
-        $( document ).ready(function() {
-            $('#postita_nupp').on('click', function(event){
-                document.getElementById('pop_up').style.display='block';
-                document.getElementById('tume_taust').style.display='block';
-                event.preventDefault();
+<script>
+    $( document ).ready(function() {
+        $('#postita_nupp').on('click', function(event){
+            document.getElementById('pop_up').style.display='block';
+            document.getElementById('tume_taust').style.display='block';
+            event.preventDefault();
+        });
+        $('#sule_aken').on('click', function(){
+            document.getElementById('pop_up').style.display='none';
+            document.getElementById('tume_taust').style.display='none';
+        });
+
+        $("#pop_up").submit(function(event){
+            var values = $(this).serialize();
+            $.ajax({
+                url: "postita.php",
+                type: "post",
+                data: values ,
+                async: false,
+
+                success: function (vastus) {
+                    // you will get response from your php page (what you echo or print)
+                    alert(vastus);
+                    event.preventDefault();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+
             });
-            $('#sule_aken').on('click', function(){
-                document.getElementById('pop_up').style.display='none';
-                document.getElementById('tume_taust').style.display='none';
-            });
+            //Peale postitamist, sulen akna:
+            document.getElementById('pop_up').style.display='none';
+            document.getElementById('tume_taust').style.display='none';
+            //Tühjendan vormi väljad:
+            $('#pop_up')[0].reset();
+            //jätan meelde id, mille vana sisu kustutan ning kuhu uue sisu lisan
+            var kategooria_id = $('select[name="kat_id"]').val();
 
-            $("#pop_up").submit(function(){
-                var values = $(this).serialize();
-                $.ajax({
-                    url: "postita.php",
-                    type: "post",
-                    data: values ,
-                    async: false,
+            $.ajax({
+                url: "lae_kategooria.php",
+                type: "post",
+                data: {id: kategooria_id} ,
+                async: false,
 
-                    success: function (vastus) {
-                        // you will get response from your php page (what you echo or print)
-                        alert(vastus);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
-                    }
+                success: function (vastus) {
+                    $json= JSON.parse(vastus);
+                    console.log($json);
+                    //tühjenda konteiner
+                    $konteiner = $("#"+kategooria_id);
+                    //jäta kat nimi meelde, et hiljem tagasi lisada
+                    $kategooria_nimi = $konteiner.children().first();
+                    $konteiner.empty();
+                    $konteiner.append($kategooria_nimi);
 
-                });
-            });
+                    $.each($json, function(k, v) {
+                        var autor = v['autor'];
 
-            $('#sisu_lisamine').keyup(function(){
-                $("#counter").text($(this).val().length);
-            });
-            
-            $('.kustuta_nupp').on('click', function(e){
-                if(!confirm("Tahad oma postitust kustutada?")){
-                    e.preventDefault();
+                        $konteiner.append('<div class="sisu"></div>');
+                        $sisu = $konteiner.children().last();
+
+                        $sisu.append("<p class =sisu_pealkiri>"+v['pealkiri']+"</p>");
+                        $sisu.append("<p class =sisu_autor>"+autor+"</p>");
+                        $sisu.append("<p class =sisu_tekst>"+v['sisu']+"</p>");
+                        if(autor == $("#kasutaja").text()){
+                            $sisu.append("<a class='kustuta_nupp' href='kustuta.php?id="+v['id']+"'>Kustuta postitus</a>");
+                        }
+                    });
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
                 }
             });
         });
-    </script>
+
+
+        $('#sisu_lisamine').keyup(function(){
+            $("#counter").text($(this).val().length);
+        });
+
+        $('.kustuta_nupp').on('click', function(e){
+            if(!confirm("Tahad oma postitust kustutada?")){
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>
