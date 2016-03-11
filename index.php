@@ -45,6 +45,10 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     <title>Infoorum</title>
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Added cdn check.-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="cdn.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
 <div id="päis">
@@ -167,100 +171,6 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 <input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
-<!-- Added cdn check.-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-<script>
-    if (typeof jQuery == 'undefined') {
-        document.write(unescape("%3Cscript src='/jquery-2.2.1.min.js' type='text/javascript'%3E%3C/script%3E"));
-    }
-</script>
 
-<script>
-    $( document ).ready(function() {
-        $('#postita_nupp').on('click', function(event){
-            document.getElementById('pop_up').style.display='block';
-            document.getElementById('tume_taust').style.display='block';
-            event.preventDefault();
-        });
-        $('#sule_aken').on('click', function(){
-            document.getElementById('pop_up').style.display='none';
-            document.getElementById('tume_taust').style.display='none';
-        });
-
-        $("#pop_up").submit(function(event){
-            var values = $(this).serialize();
-            $.ajax({
-                url: "postita.php",
-                type: "post",
-                data: values ,
-                async: false,
-
-                success: function (vastus) {
-                    // you will get response from your php page (what you echo or print)
-                    alert(vastus);
-                    event.preventDefault();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
-
-            });
-            //Peale postitamist, sulen akna:
-            document.getElementById('pop_up').style.display='none';
-            document.getElementById('tume_taust').style.display='none';
-            //Tühjendan vormi väljad:
-            $('#pop_up')[0].reset();
-            //jätan meelde id, mille vana sisu kustutan ning kuhu uue sisu lisan
-            var kategooria_id = $('select[name="kat_id"]').val();
-
-            $.ajax({
-                url: "lae_kategooria.php",
-                type: "post",
-                data: {id: kategooria_id} ,
-                async: false,
-
-                success: function (vastus) {
-                    $json= JSON.parse(vastus);
-                    console.log($json);
-                    //tühjenda konteiner
-                    $konteiner = $("#"+kategooria_id);
-                    //jäta kat nimi meelde, et hiljem tagasi lisada
-                    $kategooria_nimi = $konteiner.children().first();
-                    $konteiner.empty();
-                    $konteiner.append($kategooria_nimi);
-
-                    $.each($json, function(k, v) {
-                        var autor = v['autor'];
-
-                        $konteiner.append('<div class="sisu"></div>');
-                        $sisu = $konteiner.children().last();
-
-                        $sisu.append("<p class =sisu_pealkiri>"+v['pealkiri']+"</p>");
-                        $sisu.append("<p class =sisu_autor>"+autor+"</p>");
-                        $sisu.append("<p class =sisu_tekst>"+v['sisu']+"</p>");
-                        if(autor == $("#kasutaja").text()){
-                            $sisu.append("<a class='kustuta_nupp' href='kustuta.php?id="+v['id']+"'>Kustuta postitus</a>");
-                        }
-                    });
-
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
-            });
-        });
-
-
-        $('#sisu_lisamine').keyup(function(){
-            $("#counter").text($(this).val().length);
-        });
-
-        $('.kustuta_nupp').on('click', function(e){
-            if(!confirm("Tahad oma postitust kustutada?")){
-                e.preventDefault();
-            }
-        });
-    });
-</script>
 </body>
 </html>
