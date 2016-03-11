@@ -19,13 +19,13 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         $tulemus = $sth->fetchAll();
         
         if(count($tulemus) > 0){
-        	//lähen tulemus array sisse ja võtan sealt paroo lkey value
+        	//lähen tulemus array sisse ja võtan sealt parooli key value
         	foreach($tulemus as $t){
         		$paroolABst= $t['parool'];
-        		$token = $token['token'];
+        		$aktiveeritud = $t['aktiveeritud'];
         	}
             
-            if(password_verify($parool, $paroolABst) && $token == 1){
+            if(password_verify($parool, $paroolABst) && $aktiveeritud == 1){
             	$_SESSION["melditud"] = true;
             	$_SESSION["kasutaja"] = $kasutaja;
             }
@@ -181,6 +181,6 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 <input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
-des
+
 </body>
 </html>
