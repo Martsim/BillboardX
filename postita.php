@@ -1,10 +1,11 @@
 <?php
-//kõik ühenduse loomised võiks nüüd läbi selle faili käia:
+session_start();
+
 include('connect.php');
-if(!empty($_POST["pealkiri"]) && !empty($_POST["kat_id"]) && !empty($_POST["sisu"]) && !empty($_POST["autor"])){
-    $pealkiri = $_POST["pealkiri"];
-    $sisu = $_POST["sisu"];
-    $autor = $_POST["autor"];
+if(!empty($_POST["pealkiri"]) && !empty($_POST["kat_id"]) && !empty($_POST["sisu"]) ){
+    $pealkiri = htmlspecialchars(($_POST["pealkiri"]);
+    $sisu = htmlspecialchars($_POST["sisu"]);
+    $autor = htmlspecialchars(($_SESSION['kasutaja']);
 
     $kat_id = $_POST["kat_id"];
     try {
