@@ -5,21 +5,31 @@ session_start();
 //andmebaasiga ühendamine:
 include('connect.php');
 
+//if($_SESSION['kasutaja'] == 'dallas'){session_destroy();}
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try{
         $kasutaja = $_POST["kasutaja"];
-        $parool = md5($_POST["parool"]);
+        $parool = $_POST["parool"];
 
-        $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja and parool = :parool");
+        $sth = $pdo->prepare("SELECT * FROM kasutaja WHERE kasutaja = :kasutaja");
         $sth->bindParam(':kasutaja', $kasutaja);
-        $sth->bindParam(':parool', $parool);
         $sth->execute();
 
         $tulemus = $sth->fetchAll();
+        
         if(count($tulemus) > 0){
-            $_SESSION["melditud"] = true;
-            $_SESSION["kasutaja"] = $kasutaja;
+        	//lähen tulemus array sisse ja võtan sealt paroo lkey value
+        	foreach($tulemus as $t){
+        		$paroolABst= $t['parool'];
+        		$token = $token['token'];
+        	}
+            
+            if(password_verify($parool, $paroolABst) && $token == 1){
+            	$_SESSION["melditud"] = true;
+            	$_SESSION["kasutaja"] = $kasutaja;
+            }
+            //else{echo "Vale parool";}
 
             // redirect user to home page, using absolute path
             $host = $_SERVER["HTTP_HOST"];
@@ -124,7 +134,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         $sth->execute();
         $kategooriad = $sth->fetchAll();
 
-        $sth = $pdo->prepare("SELECT * FROM postitus");
+        $sth = $pdo->prepare("SELECT * FROM postitus ORDER BY loodud DESC");
         $sth->execute();
         $sisud = $sth->fetchAll();
 
@@ -171,6 +181,6 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 <input type="submit" id="lisa_kat" value="lisa kategooria">-->
 
-
+des
 </body>
 </html>
