@@ -5,7 +5,6 @@ session_start();
 //andmebaasiga ühendamine:
 include('connect.php');
 
-//if($_SESSION['kasutaja'] == 'dallas'){session_destroy();}
 //kui meldimis andmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try{
@@ -17,17 +16,17 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         $sth->execute();
 
         $tulemus = $sth->fetchAll();
-        
+
         if(count($tulemus) > 0){
-        	//lähen tulemus array sisse ja võtan sealt parooli key value
-        	foreach($tulemus as $t){
-        		$paroolABst= $t['parool'];
-        		$aktiveeritud = $t['aktiveeritud'];
-        	}
-            
+            //lähen tulemus array sisse ja võtan sealt parooli key value
+            foreach($tulemus as $t){
+                $paroolABst= $t['parool'];
+                $aktiveeritud = $t['aktiveeritud'];
+            }
+
             if(password_verify($parool, $paroolABst) && $aktiveeritud == 1){
-            	$_SESSION["melditud"] = true;
-            	$_SESSION["kasutaja"] = $kasutaja;
+                $_SESSION["melditud"] = true;
+                $_SESSION["kasutaja"] = $kasutaja;
             }
             //else{echo "Vale parool";}
 
@@ -70,12 +69,13 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     //kui on toimunud edukas sisselogimine, näita sisse loginud kasutajale:
     if (isset($_SESSION["melditud"]) && $_SESSION["melditud"] == true){
         //leian kõik kategooriad, salvestan array-na $tulemusse
-        $sth = $pdo->prepare("SELECT id, nimi FROM kategooria");
+        $sth = $pdo->prepare("SELECT * FROM get_kategooriad_idni");
         $sth->execute();
         $tulemus = $sth->fetchAll();
 
-        echo "<div style = 'float: right;'>Oled sisse logitud, <span id='kasutaja'>".$_SESSION['kasutaja']."</span> <a href='logout.php'>Logi välja</a></div>";
-        echo "<div id = 'postita_nupp'>Postita</div>";
+
+        echo "<div id = 'melditud'><div style = 'float: right;'>Oled sisse logitud, <span id='kasutaja'>".$_SESSION['kasutaja']."</span> <a href='logout.php'>Logi välja</a></div>";
+        echo "<div id = 'postita_nupp'>Postita</div></div>";
 
         echo"<form id='pop_up'>
                 <a href='#' id='sule_aken'>Sule aken</a><br>
@@ -108,14 +108,10 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 
 <div id="lingid">
-    <div class="container_lingid">
-        <div class="cont_lingid">
-            <a href="#" >Reeglid</a>
-            <a href="#" >Info</a>
-            <a href="#" >KKK</a>
-            <a href="#" >Kontakt</a>
-        </div>
-    </div>
+    <a href="#" >Reeglid</a>
+    <a href="#" >Info</a>
+    <a href="#" >KKK</a>
+    <a href="kontakt_katsetus.php" >Kontakt</a>
 </div>
 
 <div id="raam">
@@ -124,25 +120,21 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     //
     //kategooriate/sisu laadimine AB-st
     ///////////////////////////////////
-    $host = "localhost";
-    $user = 'infoorum_rauno';
-    $pass = 'k33ruline';
-    $database = "infoorum_db";
-
     try{
-        $sth = $pdo->prepare("SELECT * FROM kategooria");
+        $sth = $pdo->prepare("SELECT * FROM get_kategooriad");
         $sth->execute();
         $kategooriad = $sth->fetchAll();
 
-        $sth = $pdo->prepare("SELECT * FROM postitus ORDER BY loodud DESC");
+        $sth = $pdo->prepare("SELECT * FROM get_postitused");
         $sth->execute();
         $sisud = $sth->fetchAll();
 
         foreach($kategooriad as $kateg){
             $kategooria_id = $kateg['id'];
             echo '<div class="container">
+            <div class="kateg">'.$kateg['nimi'].'</div>
                 <div class="cont" id = "'.$kategooria_id.'">
-                    <div class="kateg">'.$kateg['nimi'].'</div>';
+                    ';
 
 
             //ebeaefektiivne - iga kategooria korral käib sisu massiivi läbi
@@ -168,19 +160,5 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     }
     ?>
 </div>
-<!--    <div class="container">
-        <div class="cont">
-            <div class="kateg">Kategooria 1</div>
-            <div class="sisu">Sisu1</div>
-            <div class="sisu">Sisu2</div>
-            <div class="sisu">Sisu3</div>
-            <div class="sisu">Sisu4</div>
-            <input type="submit" class="lisa_sisu" value="lisa sisu">
-        </div>
-    </div>
-</div>
-<input type="submit" id="lisa_kat" value="lisa kategooria">-->
-
-
 </body>
 </html>
