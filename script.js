@@ -44,20 +44,18 @@ $( document ).ready(function() {
 			async: false,
 
 			success: function (vastus) {
-				$json= JSON.parse(vastus);
+				var $json= JSON.parse(vastus);
 				console.log($json);
 				//tühjenda konteiner
-				$konteiner = $("#"+kategooria_id);
-				//jäta kat nimi meelde, et hiljem tagasi lisada
-				$kategooria_nimi = $konteiner.children().first();
+				var $konteiner = $("#"+kategooria_id);
+
 				$konteiner.empty();
-				$konteiner.append($kategooria_nimi);
 
 				$.each($json, function(k, v) {
 					var autor = v['autor'];
 
 					$konteiner.append('<div class="sisu"></div>');
-					$sisu = $konteiner.children().last();
+					var $sisu = $konteiner.children().last();
 
 					$sisu.append("<p class =sisu_pealkiri>"+v['pealkiri']+"</p>");
 					$sisu.append("<p class =sisu_autor>"+autor+"</p>");
