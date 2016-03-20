@@ -58,6 +58,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="cdn.js"></script>
     <script src="script.js"></script>
+    <script type="text/javascript" src="./fbapp/fb.js"></script>
 </head>
 <body>
 <div id="päis">
@@ -94,14 +95,15 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 
     }else{//Log-in form:
         echo'
-        <form method="post" action="index.php">
+        <form id="login_form" method="post" action="index.php">
             <label for="kasutaja">Kasutaja: </label>
             <input type="text" name="kasutaja" placeholder="Kasutaja" id="kasutaja">
             <label for="parool">Parool: </label>
             <input type="password" name="parool" placeholder="Parool" id="parool">
             <input type="submit" value="Sisene">
-        <a href="regamine.php" >Registreeru</a>
-    </form>
+            <a href="regamine.php" >Registreeru</a>
+            <div class ="fb-login-button" data-scope = "public_profile,email" onlogin="checkLoginState();"></div>
+        </form>
         ';
     }
     ?>
@@ -115,7 +117,6 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 
 <div id="raam">
-
     <?php
     //
     //kategooriate/sisu laadimine AB-st
@@ -132,7 +133,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         foreach($kategooriad as $kateg){
             $kategooria_id = $kateg['id'];
             echo '<div class="container">
-            <div class="kateg">'.$kateg['nimi'].'</div>
+            <div class="kateg"><span class="vert">'.$kateg['nimi'].'</span></div>
                 <div class="cont" id = "'.$kategooria_id.'">
                     ';
 
@@ -160,5 +161,8 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     }
     ?>
 </div>
+<footer><div id="stats_nupp">Statistika</div>
+	<p id="stats"></p>
+</footer>
 </body>
 </html>

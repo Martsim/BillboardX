@@ -1,10 +1,10 @@
-<form method="post" action="regamine.php">
+<!-- <form method="post" action="regamine.php">
 
         <input type="password" name="paroolike" placeholder="Parool">
         <input type="submit" value="Registreeri">
-</form>
+</form> -->
 <?php
-if($_POST['paroolike'] == "paroolikene"){
+//if($_POST['paroolike'] == "paroolikene"){
 echo '
 <form method="post" action="regamine.php">
 
@@ -14,16 +14,21 @@ echo '
         <input type="text" name="email" placeholder="Email">
         <input type="submit" value="Registreeri">
 </form>';
-}
+//}
 
  if(!empty(trim($_POST['kasutaja'])) && !empty(trim($_POST['parool']))  && !empty(trim($_POST['parool2'])) && !empty(trim($_POST['email']))){
+     
      $kasutaja = trim($_POST['kasutaja']);   
      $parool = trim($_POST['parool']);
      $parool2 = trim($_POST['parool2']);
+     $email = trim($_POST['email']);
      if($parool != $parool2){echo "Paroolid ei kattu"; exit;}
+     if(strpos($kasutaja, ' ') !== false){echo "Kasutajanimes ei tohi tühikut olla"; exit;}
      
      $parool = password_hash($parool, PASSWORD_BCRYPT);
-     $email = trim($_POST['email']);
+     
+     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { echo "E-mail pole korrekktne"; exit;}
+     if($kasutaja != strip_tags($kasutaja) || $email != strip_tags($email)){echo "Keelatud sümbolid"; exit;}
      
      include('connect.php');
 
@@ -82,7 +87,6 @@ echo '
 		           } catch(PDOException $e) {
         			 echo 'ERROR: ' . $e->getMessage();
      			   }
-			
 		}
          }
 	 

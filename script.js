@@ -82,4 +82,13 @@ $( document ).ready(function() {
 			e.preventDefault();
 		}
 	});
+    	$(window).load(function(){
+    		console.log("Leht laetud, laen nüüd statistika");
+    		$("#stats").load('/statistika.php');
+    
+   	});
+	$('#stats_nupp').click(function(){
+    		$('#stats').slideToggle();
+    		$('body, html').animate({scrollTop:$('footer').offset().top},500)
+	});
 });
