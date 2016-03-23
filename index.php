@@ -113,7 +113,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     <a href="#" >Reeglid</a>
     <a href="#" >Info</a>
     <a href="#" >KKK</a>
-    <a href="kontakt_katsetus.php" >Kontakt</a>
+    <a href="kontakt.php" >Kontakt</a>
 </div>
 
 <div id="raam">
