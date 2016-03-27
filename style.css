@@ -66,6 +66,15 @@ div{
 #login_form{
     min-width: 578px;
 }
+.fb-no-jump{
+    min-height: 40px;
+    overflow: hidden;
+}
+.fb-login-button{
+    min-width: 110px;
+    max-width: 110px;
+    overflow: hidden;
+}
 
 
 form{

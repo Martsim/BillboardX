@@ -81,16 +81,29 @@ include('controller/connect.php');
 				    { 
 				    ?>
 				    <div class="kontakt"> 
-				    <kontakt_vorm  action="" method="POST" enctype="multipart/form-data"> 
-				    <input type="hidden" name="action" value="submit">    
-				    <label for='name'><?= $xml->nimi->$keel ?></label><br>
-				    <input name="name" type="text" value="" size="30"/><br> 
-				    <label for='email'><?= $xml->ekiri->$keel ?></label><br>
-				    <input name="email" type="text" value="" size="30"/><br> 
-				    <label for='message'><?= $xml->sõnum->$keel ?></label><br>
-				    <textarea name="message" rows="7" cols="30"></textarea><br> 
-				    <input type="submit" value=<?= $xml->saada->$keel ?>>
-				    </kontakt_vorm> 
+					    <kontakt_vorm  action="" method="POST" enctype="multipart/form-data"> 
+						    <label for='name'><?= $xml->nimi->$keel; ?></label><br>
+						    <? $sxe = new SimpleXMLElement("xml/keel.xml",NULL,TRUE);
+						    $namespace = $sxe->getNameSpaces(true); echo var_dump($namespace)?>
+						    <label for='name'>
+						    <?= 
+						    $child = $sxe->children($namespace['k']);
+						    foreach ($child->nimi as $out_ns)
+								{
+								    echo $out_ns;
+								    echo $out_ns->children(et);
+								    foreach ($out_ns as $o){echo $o;}
+								    
+								};
+						    $xml->children($namespace['k'])->et; ?></label>
+						    <br>
+						    <input id="name" name="name" type="text" value="" size="30"/><br> 
+						    <label for='email'><?= $xml->ekiri->$keel ?></label><br>
+						    <input id="email" name="email" type="text" value="" size="30"/><br> 
+						    <label for='message'><?= $xml->sõnum->$keel ?></label><br>
+						    <textarea id="message" name="message" rows="7" cols="30"></textarea><br> 
+						    <input type="submit" value=<?= $xml->saada->$keel ?>>
+					    </kontakt_vorm> 
 				    </div>
 				    <?php 
 				    }  
@@ -109,7 +122,7 @@ include('controller/connect.php');
 				        mail("noreply@infoorum.cs.ut.ee", $subject, $message, $from); 
 				        echo "Kiri saadetud!"; 
 				        } 
-				    }   
+				 }   
 			?>
 		</div>
 	        <div id="googleMap"></div>

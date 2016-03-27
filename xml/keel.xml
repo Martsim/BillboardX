@@ -2,7 +2,12 @@
 <!--
 uus tag võiks olla sama(sarnane), mis eestikeelne vaste, väikeste tähtedega (nt <keel><et>Vali keel... ja <parool><et>Parool...)
 kasuta kommentaare kui vaja -->
-<root>
+<root xmlns:k="http://infoorum.cs.ut.ee/kontakt.php" xmlns:t="http://example.org/test">
+	
+	<!--xmlns:k="http://infoorum.cs.ut.ee/kontakt.php"-->
+	<!--xmlns:f="http://www.w3schools.com/furniture">-->
+	<t:katse>katse</t:katse>
+	<k:katse>katse</k:katse>
 	<!--Päis-->
 	<keel>
 		<et>Vali keel</et>
@@ -85,6 +90,10 @@ kasuta kommentaare kui vaja -->
 	
 	
 	<!--Kontakt-->
+	<k:nimi>
+		<et>Nimi: </et>
+		<en>Name: </en>
+	</k:nimi>
 	<nimi>
 		<et>Nimi:</et>
 		<en>Name:</en>
