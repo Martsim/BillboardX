@@ -12,7 +12,7 @@ $( document ).ready(function() {
 	$("#pop_up").submit(function(event){
 		var values = $(this).serialize();
 		$.ajax({
-			url: "postita.php",
+			url: "controller/postita.php",
 			type: "post",
 			data: values ,
 			async: false,
@@ -38,7 +38,7 @@ $( document ).ready(function() {
 		$('#pop_up')[0].reset();
 
 		$.ajax({
-			url: "lae_kategooria.php",
+			url: "controller/lae_kategooria.php",
 			type: "post",
 			data: {id: kategooria_id} ,
 			async: false,
@@ -84,7 +84,7 @@ $( document ).ready(function() {
 	});
     	$(window).load(function(){
     		console.log("Leht laetud, laen nüüd statistika");
-    		$("#stats").load('/statistika.php');
+    		$("#stats").load('../view/statistika.php');
     
    	});
 	$('#stats_nupp').click(function(){

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+uus tag võiks olla sama(sarnane), mis eestikeelne vaste, väikeste tähtedega (nt <keel><et>Vali keel... ja <parool><et>Parool...)
+kasuta kommentaare kui vaja -->
+<root>
+	<!--Päis-->
+	<keel>
+		<et>Vali keel</et>
+		<en>Select language</en>
+	</keel>
+	<kasutaja>
+		<et>Kasutaja</et>
+		<en>Username</en>
+	</kasutaja>
+	<parool>
+		<et>Parool</et>
+		<en>Password</en>
+	</parool>
+	<sisene>
+		<et>Sisene</et>
+		<en>Log in</en>
+	</sisene>
+	<registreeru>
+		<et>Registreeru</et>
+		<en>Register</en>
+	</registreeru>
+	
+	<!--Päis peale meldimist-->
+	<logitud>
+		<et>Oled sisse logitud, </et>
+		<en>You are logged in, </en>
+	</logitud>
+	<välja>
+		<et>Logi välja</et>
+		<en>Log out</en>
+	</välja>
+	
+	<postita>
+		<et>Postita</et>
+		<en>Submit a post</en>
+	</postita>
+	
+	<!--POP UP -->
+	<sule>
+		<et>Sule aken</et>
+		<en>Close window</en>
+	</sule>
+	<pealkiri>
+		<et>Pealkiri</et>
+		<en>Title</en>
+	</pealkiri>
+	<sisu>
+		<et>Sisu</et>
+		<en>Content</en>
+	</sisu>
+	
+	<!--Lingid-->
+	<reeglid>
+		<et>Reeglid</et>
+		<en>Rules</en>
+	</reeglid>
+	<info>
+		<et>Info</et>
+		<en>Info</en>
+	</info>
+	<kkk>
+		<et>KKK</et>
+		<en>FAQ</en>
+	</kkk>
+	<kontakt>
+		<et>Kontakt</et>
+		<en>Contact</en>
+	</kontakt>
+	
+	
+	<!--Statistika-->
+	<statistika>
+		<et>Statistika</et>
+		<en>Statistics</en>
+	</statistika>
+	<stats_lause>
+		<et>postitust kategoorias</et>
+		<en>posts in the category </en>
+	</stats_lause>
+	
+	
+	<!--Kontakt-->
+	<nimi>
+		<et>Nimi:</et>
+		<en>Name:</en>
+	</nimi>
+	<ekiri>
+		<et>Email:</et>
+		<en>Email:</en>
+	</ekiri>
+	<sõnum>
+		<et>Sõnum:</et>
+		<en>Message:</en>
+	</sõnum>
+	<saada>
+		<et>Saada</et>
+		<en>Send</en>
+	</saada>
+	
+</root>

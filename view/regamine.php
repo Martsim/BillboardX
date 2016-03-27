@@ -4,6 +4,8 @@
         <input type="submit" value="Registreeri">
 </form> -->
 <?php
+include('../controller/connect.php');
+ 
 //if($_POST['paroolike'] == "paroolikene"){
 echo '
 <form method="post" action="regamine.php">
@@ -30,7 +32,6 @@ echo '
      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { echo "E-mail pole korrekktne"; exit;}
      if($kasutaja != strip_tags($kasutaja) || $email != strip_tags($email)){echo "Keelatud sümbolid"; exit;}
      
-     include('connect.php');
 
      try{
          $sth = $pdo->prepare("SELECT * FROM kasutaja");
@@ -57,7 +58,7 @@ echo '
 	
 		$title = "Infoorum: kasutaja registreerimine";
 		// The message
-		$message = "Tere\r\n\r\nAktivatsioonilink: http://infoorum.cs.ut.ee/aktivatsioon.php/?token=$token\r\n Kasutajale: $kasutaja \r\n\r\n Kohtumiseni";
+		$message = "Tere\r\n\r\nAktivatsioonilink: http://infoorum.cs.ut.ee/controller/aktivatsioon.php/?token=$token\r\n Kasutajale: $kasutaja \r\n\r\n Kohtumiseni";
 		
 		// In case any of our lines are larger than 70 characters, we should use wordwrap()
 		$message = wordwrap($message, 70, "\r\n");

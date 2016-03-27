@@ -1,0 +1,20 @@
+[27-Mar-2016 17:22:54 Europe/Tallinn] PHP Warning:  simplexml_load_file(): I/O warning : failed to load external entity &quot;xml/keel.xml&quot; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 17:23:21 Europe/Tallinn] PHP Warning:  simplexml_load_file(): I/O warning : failed to load external entity &quot;./xml/keel.xml&quot; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 17:56:44 Europe/Tallinn] PHP Warning:  simplexml_load_file(): ../xml/keel.xml:4: parser error : XML declaration allowed only at the start of the document in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 17:56:44 Europe/Tallinn] PHP Warning:  simplexml_load_file(): &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 17:56:44 Europe/Tallinn] PHP Warning:  simplexml_load_file():      ^ in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:00:11 Europe/Tallinn] PHP Warning:  simplexml_load_file(): ../xml/keel.xml:4: parser error : XML declaration allowed only at the start of the document in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:00:11 Europe/Tallinn] PHP Warning:  simplexml_load_file(): &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:00:11 Europe/Tallinn] PHP Warning:  simplexml_load_file():      ^ in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:47 Europe/Tallinn] PHP Warning:  simplexml_load_file(): ../xml/keel.xml:4: parser error : XML declaration allowed only at the start of the document in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:47 Europe/Tallinn] PHP Warning:  simplexml_load_file(): &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:47 Europe/Tallinn] PHP Warning:  simplexml_load_file():      ^ in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:53 Europe/Tallinn] PHP Warning:  simplexml_load_file(): ../xml/keel.xml:4: parser error : XML declaration allowed only at the start of the document in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:53 Europe/Tallinn] PHP Warning:  simplexml_load_file(): &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:53 Europe/Tallinn] PHP Warning:  simplexml_load_file():      ^ in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:57 Europe/Tallinn] PHP Warning:  simplexml_load_file(): ../xml/keel.xml:4: parser error : XML declaration allowed only at the start of the document in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:57 Europe/Tallinn] PHP Warning:  simplexml_load_file(): &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:02:57 Europe/Tallinn] PHP Warning:  simplexml_load_file():      ^ in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:03:20 Europe/Tallinn] PHP Warning:  simplexml_load_file(): ../xml/keel.xml:4: parser error : XML declaration allowed only at the start of the document in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:03:20 Europe/Tallinn] PHP Warning:  simplexml_load_file(): &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in /webpages/infoorumcsut/public_html/view/statistika.php on line 17
+[27-Mar-2016 18:03:20 Europe/Tallinn] PHP Warning:  simplexml_load_file():      ^ in /webpages/infoorumcsut/public_html/view/statistika.php on line 17

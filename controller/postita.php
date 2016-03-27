@@ -35,3 +35,7 @@ NULL , :autor, :kat_id, :pealkiri, :sisu, NOW( ) )");
     echo "Esines tühja välja";
 }
 
+
+
+
+?>
