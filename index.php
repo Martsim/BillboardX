@@ -117,10 +117,12 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             <label for="kasutaja">'. $xml->kasutaja->$keel .': </label>
             <input type="text" name="kasutaja" placeholder='. $xml->kasutaja->$keel.'  id="kasutaja">
             <label for="parool">'. $xml->parool->$keel .': </label>
-            <input type='. $xml->parool->$keel .' name="parool" placeholder='.$xml->parool->$keel.' id="parool">
+            <input type="password" name="parool" placeholder='.$xml->parool->$keel.' id="parool">
             <input type="submit" value="'. $xml->sisene->$keel .'">
-            <a href="regamine.php" >' .$xml->registreeru->$keel. '</a>
+            <a href="view/regamine.php" >' .$xml->registreeru->$keel. '</a>
+            <div class ="fb-no-jump">
             <div class ="fb-login-button" data-scope = "public_profile,email" onlogin="checkLoginState();"></div>
+            </div>
         </form>
         ';
     }
