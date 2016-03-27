@@ -75,7 +75,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     
     <!--Keelevalik-->
     <form id="keele_vorm" method="get" action="/controller/keel_kypsisesse.php">
-    	<select name="keel" onchange="this.form.submit()">
+    	<select name="keel" title="Keele valik" onchange="this.form.submit()">
     		<option><?= $xml->keel->$keel ?></option>
     		<option value="et">Eesti</option>
   		<option value="en">English</option>
