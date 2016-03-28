@@ -83,19 +83,21 @@ include('controller/connect.php');
 				    <div class="kontakt"> 
 					    <kontakt_vorm  action="" method="POST" enctype="multipart/form-data"> 
 						    <label for='name'><?= $xml->nimi->$keel; ?></label><br>
-						    <? $sxe = new SimpleXMLElement("xml/keel.xml",NULL,TRUE);
-						    $namespace = $sxe->getNameSpaces(true); echo var_dump($namespace)?>
-						    <label for='name'>
-						    <?= 
+						    
+						    <?//namespace
+						    	$sxe = new SimpleXMLElement("xml/keel.xml",NULL,TRUE);
+						    	$namespace = $sxe->getNameSpaces(true);
+						    ?>
+						    <label for='name'>					    
+						    <?//kõik noded k: eesliitega, otsin õige
 						    $child = $sxe->children($namespace['k']);
-						    foreach ($child->nimi as $out_ns)
-								{
-								    echo $out_ns;
-								    echo $out_ns->children(et);
-								    foreach ($out_ns as $o){echo $o;}
-								    
-								};
-						    $xml->children($namespace['k'])->et; ?></label>
+						    
+						    //otsin jälle node-i "nimi", aga seekord saan vastuseks midagi muud
+						    foreach ($child->nimi as $out_ns){
+							foreach ($out_ns->children() as $o){
+							    	if($o->getName() == $keel){echo $o;}}
+						    	};
+					            ?></label>
 						    <br>
 						    <input id="name" name="name" type="text" value="" size="30"/><br> 
 						    <label for='email'><?= $xml->ekiri->$keel ?></label><br>
