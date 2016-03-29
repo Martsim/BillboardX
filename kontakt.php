@@ -91,12 +91,7 @@ include('controller/connect.php');
 						    <label for='name'>					    
 						    <?//kõik noded k: eesliitega, otsin õige
 						    $child = $sxe->children($namespace['k']);
-						    
-						    //otsin jälle node-i "nimi", aga seekord saan vastuseks midagi muud
-						    foreach ($child->nimi as $out_ns){
-							foreach ($out_ns->children() as $o){
-							    	if($o->getName() == $keel){echo $o;}}
-						    	};
+						    echo $child->nimi->children()->$keel;
 					            ?></label>
 						    <br>
 						    <input id="name" name="name" type="text" value="" size="30"/><br> 
