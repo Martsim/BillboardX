@@ -80,6 +80,10 @@ kasuta kommentaare kui vaja -->
 		<et>Kontakt</et>
 		<en>Contact</en>
 	</kontakt>
+	<anneta>
+		<et>Anneta</et>
+		<en>Donate</en>
+	</anneta>
 	<!--  -->
 	<kustuta>
 		<et>Kustuta postitus</et>
@@ -119,14 +123,51 @@ kasuta kommentaare kui vaja -->
 		<en>Send</en>
 	</saada>
 	
-	<!---kommenteerimine -->
 	<kommentaar>
 		<et>Kommentaar:</et>
 		<en>Comment:</en>
 	</kommentaar>
 	
 	<esita>
-		<ee>Esita</ee>
-		<en>Submit</en>
+	<ee>Esita</ee>
+	<en>Submit</en>
 	</esita>
+	
+	<!--Infosildid-->
+	
+	<!--kontakt.php infosildid-->
+	<kontakt_info>
+		<et>Sisesta enda nimi, e-maili aadress ja sõnum etteantud väljadele</et>
+		<en>Fill in all the fields with required information</en>
+	</kontakt_info>
+	
+	<!--index.php infosildid-->
+	<logimise_info>
+		<et>Kui sa ei ole veel registreerunud, siis saad seda teha vajutades "Registreeru"</et>
+		<en>If you are not a registered yet, please signup using "Register"</en>
+	</logimise_info>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </root>
