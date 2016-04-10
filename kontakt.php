@@ -7,11 +7,18 @@ include('controller/connect.php');
 <head>
     <title>Infoorum</title>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!-- Added cdn check.-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+-->  
+  <!-- Added cdn check.-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="cdn.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <script src="js/kontakt.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     	
 	<script>
@@ -64,10 +71,12 @@ include('controller/connect.php');
 	<div id="lingid">
 	    <div class="container_lingid">
 	        <div class="cont_lingid">
+	            <a href="index.php" ><?= $xml->kodu->$keel ?></a>
 	            <a href="#" ><?= $xml->reeglid->$keel ?></a>
     		    <a href="#" ><?= $xml->info->$keel ?></a>
     		    <a href="#" ><?= $xml->kkk->$keel ?></a>
     		    <a href="kontakt.php" ><?= $xml->kontakt->$keel ?></a>
+    		    <a href="anneta.php" ><?= $xml->anneta->$keel ?></a>
 	        </div>
 	    </div>
 	</div>
@@ -80,7 +89,11 @@ include('controller/connect.php');
 				if ($action=="")    /* kuva kontakti vorm */ 
 				    { 
 				    ?>
-				    <div class="kontakt"> 
+				    <div class="kontakt">
+				    	<div> 
+				    	<a data-toggle="popover" data-placement="top" data-content="<?= $xml->kontakt_info->$keel ?>" data-trigger="hover" ><span class="glyphicon glyphicon-info-sign"</span></a>
+				    	</div>
+				    	
 					    <kontakt_vorm  action="" method="POST" enctype="multipart/form-data"> 
 						    <label for='name'><?= $xml->nimi->$keel; ?></label><br>
 						    
@@ -88,12 +101,6 @@ include('controller/connect.php');
 						    	$sxe = new SimpleXMLElement("xml/keel.xml",NULL,TRUE);
 						    	$namespace = $sxe->getNameSpaces(true);
 						    ?>
-						    <label for='name'>					    
-						    <?//kõik noded k: eesliitega, otsin õige
-						    $child = $sxe->children($namespace['k']);
-						    echo $child->nimi->children()->$keel;
-					            ?></label>
-						    <br>
 						    <input id="name" name="name" type="text" value="" size="30"/><br> 
 						    <label for='email'><?= $xml->ekiri->$keel ?></label><br>
 						    <input id="email" name="email" type="text" value="" size="30"/><br> 
