@@ -1,4 +1,6 @@
 $( document ).ready(function() {
+	$('.fb-no-jump').prepend('<div class ="fb-login-button" data-scope = "public_profile,email" onlogin="checkLoginState();"></div>');
+
 	$('#postita_nupp').on('click', function(event){
 		document.getElementById('pop_up').style.display='block';
 		document.getElementById('tume_taust').style.display='block';
@@ -90,5 +92,62 @@ $( document ).ready(function() {
 	$('#stats_nupp').click(function(){
     		$('#stats').slideToggle();
     		$('body, html').animate({scrollTop:$('footer').offset().top},500)
+	});
+	
+	$('#postitakommentaar').click(function(event){
+		var button = $(this);
+    	var nupuid = $(this).attr('data-postid');
+		var sisu =  $(this).prev().children("textarea").val();
+
+		$.post( "controller/kommenteeri.php", { id: nupuid, kom_sisu: sisu }, function( data ) {
+			alert( data );
+			button.parent().prev().children("#modal-kommentaarid").append("<p class =modal-kommentaarid2>"+"Mina : " +sisu+"</p>");
+		});
+
+	});
+	
+	
+	$('#viewModal').on('show.bs.modal', function (event) {
+
+		var button = $(event.relatedTarget); // Button that triggered the modal
+		
+		var infoinModal = button.data('postituseid'); // Extract info from data-* attributes
+		var infoinModal2 = button.data('kategid');
+		var modal = $(this)
+		$sisud = $sisudM[infoinModal2];	
+		
+		$.each($sisud, function(k, v) {
+	
+	
+			var p_id = v['id'];
+			
+			if(p_id == infoinModal){
+				var pealki = v['pealkiri'];
+				var sisus = v['sisu'];
+				var autor = v['autor'];
+
+				modal.find('.modal-title').text(pealki);
+				modal.find('.modal-sisu').text(sisus);
+				modal.find('#postitakommentaar').attr('data-postid', p_id);
+			}
+			
+			
+		});
+	
+		$.post( "controller/lae_kommentaar.php", { id: infoinModal}, function( data ) {
+			console.log(data);
+			var seediv = modal.find('#modal-kommentaarid');
+			if (data.length > 2){
+				
+				seediv.html("");
+				$.each(JSON.parse(data), function(k, v) {
+					var autor = v['autor'];
+					seediv.append("<p class =modal-kommentaarid2>"+v['autor']+" : " +v['sisu']+"</p>");
+						
+				});
+			} else {
+				seediv.html("<p class='modal-kommentaarid2'>Kommentaare pole</p>");
+			}
+		});
 	});
 });

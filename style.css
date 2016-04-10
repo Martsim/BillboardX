@@ -121,11 +121,11 @@ input{
 }
 
 .cont{
-    overflow:auto;
+    overflow-x:scroll;
+    overflow-y: hidden;
     border: 1px solid;
     display: flex;
-    max-height: 300px;
-    min-height: 140px;
+    height: 300px;
 }
 .sisu_pealkiri{
     font-weight: bold;
@@ -197,4 +197,46 @@ footer{
 }
 #stats{
     display:none;
+}
+
+#modalkeha{
+	display:flex;
+}
+
+#post-vasak{
+	padding-left:5px;
+	padding-right:5px;
+}
+#post-parem{
+	padding-left:5px;
+	padding-right:5px;
+}
+#modal-kommentaarid {
+	overflow-y:scroll;
+}
+.modal-nupp {
+	display:flex;
+	padding: 6px 12px;
+	width: 200px;
+	height: 100px;
+	font-size: 14px;
+	font-weight:400;
+	text-align:center;
+	vertical-align: middle;
+	cursor: pointer;
+	border : 3px solid transparent;
+	border-radius: 4px;
+}
+.v-nupp {
+	display:flex;
+	padding: 6px 12px;
+	width: 80px;
+	height: 60px;
+	font-size: 14px;
+	font-weight:400;
+	text-align:center;
+	vertical-align: middle;
+	cursor: pointer;
+	border : 2px solid transparent;
+	border-radius: 4px;
 }

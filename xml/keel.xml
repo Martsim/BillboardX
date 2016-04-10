@@ -6,8 +6,8 @@ kasuta kommentaare kui vaja -->
 	
 	<!--Päis-->
 	<keel>
-		<et>Vali keel</et>
-		<en>Select language</en>
+		<et>EN</et>
+		<en>ET</en>
 	</keel>
 	<kasutaja>
 		<et>Kasutaja</et>
@@ -54,8 +54,16 @@ kasuta kommentaare kui vaja -->
 		<et>Sisu</et>
 		<en>Content</en>
 	</sisu>
+	<märk>
+		<et>tähemärki</et>
+		<en>characters</en>
+	</märk>
 	
 	<!--Lingid-->
+	<kodu>
+		<et>Kodu</et>
+		<en>Home</en>
+	</kodu>
 	<reeglid>
 		<et>Reeglid</et>
 		<en>Rules</en>
@@ -72,7 +80,11 @@ kasuta kommentaare kui vaja -->
 		<et>Kontakt</et>
 		<en>Contact</en>
 	</kontakt>
-	
+	<!--  -->
+	<kustuta>
+		<et>Kustuta postitus</et>
+		<en>Delete post</en>
+	</kustuta>
 	
 	<!--Statistika-->
 	<statistika>
@@ -107,4 +119,14 @@ kasuta kommentaare kui vaja -->
 		<en>Send</en>
 	</saada>
 	
+	<!---kommenteerimine -->
+	<kommentaar>
+		<et>Kommentaar:</et>
+		<en>Comment:</en>
+	</kommentaar>
+	
+	<esita>
+		<ee>Esita</ee>
+		<en>Submit</en>
+	</esita>
 </root>
