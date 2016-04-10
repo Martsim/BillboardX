@@ -49,7 +49,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 // echo "Esines tühja välja";}
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et" lang="et" >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et" lang="et" manifest="cachemanifest.appcache">
 <head>
     <title>Infoorum</title>
     <meta charset='utf-8'>

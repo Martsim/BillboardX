@@ -200,14 +200,19 @@ footer{
 }
 
 #modalkeha{
+	min-width:500px;
 	display:flex;
 }
 
 #post-vasak{
+	min-width:300px;
+	width:60%;
 	padding-left:5px;
 	padding-right:5px;
 }
 #post-parem{
+	min-width:200px;
+	width:40%;
 	padding-left:5px;
 	padding-right:5px;
 }
