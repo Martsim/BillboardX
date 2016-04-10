@@ -47,7 +47,6 @@ $( document ).ready(function() {
 
 			success: function (vastus) {
 				var $json= JSON.parse(vastus);
-				console.log($json);
 				//tühjenda konteiner
 				var $konteiner = $("#"+kategooria_id);
 
@@ -63,7 +62,7 @@ $( document ).ready(function() {
 					$sisu.append("<p class =sisu_autor>"+autor+"</p>");
 					$sisu.append("<p class =sisu_tekst>"+v['sisu']+"</p>");
 					if(autor == $("#kasutaja").text()){
-						$sisu.append("<a class='kustuta_nupp' href='kustuta.php?id="+v['id']+"'>Kustuta postitus</a>");
+						$sisu.append("<a class='kustuta_nupp' href='controller/kustuta.php?id="+v['id']+"'>Kustuta postitus</a>");
 					}
 				});
 
@@ -150,4 +149,44 @@ $( document ).ready(function() {
 			}
 		});
 	});
+
+	// NÖ push
+	push();
+	function push(){
+		setTimeout(function() {
+			$('.cont').each(function(){
+				kat = $(this).attr('id');
+				sisu = $(this).children().first().attr('id');
+				var $see = $(this);
+
+				$.post("controller/push.php", {kat_id : kat, sisu_id: sisu}, function (data) {
+					try{
+						var json= JSON.parse(data);
+						json = json[0];
+						console.log(json['id']);
+
+						$sisu = $('<div class="sisu"></div>').attr('id', json['id']);
+
+						var autor = json['autor'];
+
+						$sisu.append("<p class =sisu_pealkiri>"+json['pealkiri']+"</p>");
+						$sisu.append("<p class =sisu_autor>"+autor+"</p>");
+						$sisu.append("<p class =sisu_tekst>"+json['sisu']+"</p>");
+						if(autor == $("#kasutaja").text()){
+							$sisu.append("<a class='kustuta_nupp' href='controller/kustuta.php?id="+json['id']+"'>Kustuta postitus</a>");
+						}
+						console.log('.cont'.kat);
+						$('.cont#'.kat).prepend($sisu);
+						$see.prepend($sisu);
+					}catch(err){
+
+					}
+
+				});
+			})
+			push();
+		}, 3500);
+	}
+
+
 });

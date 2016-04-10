@@ -55,8 +55,9 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- Added cdn check.-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
     <script src="js/cdn.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <script src="js/script.js"></script>
     <script type="text/javascript" src="./fbapp/fb.js"></script>
 </head>
@@ -121,7 +122,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             <input type="submit" value="'. $xml->sisene->$keel .'">
             <a href="view/regamine.php" >' .$xml->registreeru->$keel. '</a>
             <div class ="fb-no-jump">
-            <div class ="fb-login-button" data-scope = "public_profile,email" onlogin="checkLoginState();"></div>
+            
             </div>
         </form>
         ';
@@ -130,10 +131,12 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 </div>
 
 <div id="lingid">
+    <a href="index.php" ><?= $xml->kodu->$keel ?></a>
     <a href="#" ><?= $xml->reeglid->$keel ?></a>
     <a href="#" ><?= $xml->info->$keel ?></a>
     <a href="#" ><?= $xml->kkk->$keel ?></a>
     <a href="kontakt.php" ><?= $xml->kontakt->$keel ?></a>
+    <a href="anneta.php" ><?= $xml->anneta->$keel ?></a>
 </div>
 
 <div id="raam">
@@ -141,44 +144,42 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     //
     //kategooriate/sisu laadimine AB-st
     ///////////////////////////////////
-    try{
-        $sth = $pdo->prepare("SELECT * FROM get_kategooriad");
-        $sth->execute();
-        $kategooriad = $sth->fetchAll();
 
-        $sth = $pdo->prepare("SELECT * FROM get_postitused");
+    $sth = $pdo->prepare("SELECT * FROM get_kategooriad");
+    $sth->execute();
+    $kategooriad = $sth->fetchAll();
+
+    foreach($kategooriad as $k){
+
+        $sth = $pdo->prepare("SELECT * FROM postitus WHERE kat_id = :kat_id ORDER BY loodud DESC LIMIT :mitmendast, 4");
+        $sth->bindParam(":kat_id", $k['id']);
+        $mitmendast = (!empty($_GET["kat".$k['id']])) ? $_GET['kat'.$k['id']] : 0;
+        $mitmendast = (int)$mitmendast;//castimiseta ei tööta
+        $sth->bindParam(":mitmendast",  $mitmendast, PDO::PARAM_INT);
         $sth->execute();
         $sisud = $sth->fetchAll();
 
-        foreach($kategooriad as $kateg){
-            $kategooria_id = $kateg['id'];
+        $kategooria_id = $k['id'];
             echo '<div class="container">
-            <div class="kateg"><span class="vert">'.$kateg['nimi'].'</span></div>
+            <div class="kateg"><span class="vert">'.$k['nimi'].'</span></div>
                 <div class="cont" id = "'.$kategooria_id.'">
                     ';
 
-
-            //ebeaefektiivne - iga kategooria korral käib sisu massiivi läbi
-            foreach($sisud as $sis){
-                if($sis['kat_id'] == $kategooria_id){
-                    echo "<div class='sisu'>";
-                    echo "<p class ='sisu_pealkiri'>".$sis['pealkiri']."</p>";
-                    echo "<p class ='sisu_autor'>".$sis['autor']."</p>";
-                    echo '<div class = "sisu_tekst">'.$sis['sisu'].'</div>';
+        foreach($sisud as $s){
+            echo "<div class='sisu' id = ".$s['id'].">";
+                    echo "<p class ='sisu_pealkiri'>".$s['pealkiri']."</p>";
+                    echo "<p class ='sisu_autor'>".$s['autor']."</p>";
+                    echo '<div class = "sisu_tekst">'.$s['sisu'].'</div>';
                     //case insensitive comparing(strcasecmp)
-                    if(!empty($_SESSION["kasutaja"]) && strcasecmp ($_SESSION["kasutaja"], $sis['autor']) == 0){
-                        echo "<a class='kustuta_nupp' href='../controller/kustuta.php?id=".$sis['id']."'>Kustuta postitus</a>";
+                    if(!empty($_SESSION["kasutaja"]) && strcasecmp ($_SESSION["kasutaja"], $s['autor']) == 0){
+                        echo "<a class='kustuta_nupp' href='../controller/kustuta.php?id=".$s['id']."'>Kustuta postitus</a>";
                     }
 
                     echo "</div>";
-                }
-            }
-            echo '</div></div>';
-
         }
-    }catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
+        echo '</div></div>';
     }
+
     ?>
 </div>
 
