@@ -5,7 +5,7 @@ session_start();
 //andmebaasiga ühendamine:
 include('controller/connect.php');
 
-//kui meldimis andmed on postitatud
+//kui meldimisandmed on postitatud
 if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     try{
         $kasutaja = $_POST["kasutaja"];
@@ -78,8 +78,8 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     <form id="keele_vorm" method="get" action="/controller/keel_kypsisesse.php">
     	<select name="keel" title="Keele valik" onchange="this.form.submit()">
     		<option><?= $xml->keel->$keel ?></option>
-    		<option value="et">Eesti</option>
-  		<option value="en">English</option>
+    		<option value="et">Eesti keeles</option>
+  		<option value="en">In English</option>
 	</select>
     </form>
     <!-- see on tume taust pop_up(modal)'i jaoks: -->
@@ -97,8 +97,9 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         echo "<div id = 'melditud'><div style = 'float: right;'>".$xml->logitud->$keel."<span id='kasutaja'>".$_SESSION['kasutaja']."</span> <a href='controller/logout.php'>".$xml->välja->$keel."</a></div>";
         echo "<div id = 'postita_nupp'>".$xml->postita->$keel."</div></div>";
 
+        //Postitamise Modal
         echo"<form id='pop_up'>
-                <a href='#' id='sule_aken'>". $xml->sule->$keel ."</a><br>
+                <a href='' id='sule_aken'>". $xml->sule->$keel ."</a><br>
                <select name='kat_id'>";
         foreach($tulemus as $t){
             echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
@@ -111,6 +112,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                 <input type='submit' value='". $xml->postita->$keel ."'><br>
 
             </form>";
+
 
     }else{//Log-in form:
         echo'
@@ -127,6 +129,22 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
         </form>
         ';
     }
+    //Sisu laadimise modal
+    echo "<form id='pop_up2'>
+                <a href='' id='sule_aken2'>". $xml->sule->$keel ."</a><br>
+                <strong><p id='modal_pealkiri'></p></strong>
+                <em><p id='modal_autor'></p></em>
+                <p id='modal_sisu'></p>
+                <br>
+                <p id = 'modal_kommentaar'></p>
+                ";
+                if (isset($_SESSION["melditud"]) && $_SESSION["melditud"] == true){
+                    echo "<textarea form='pop_up2' name = 'modal_komment' id='modal_kommenteeri' rows='2' cols='30'></textarea>
+                    <input type='submit' value='Kommenteeri' id='postita_kommentaar'><br>";
+                }
+
+            echo "</form>";
+
     ?>
 </div>
 
@@ -145,7 +163,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     //kategooriate/sisu laadimine AB-st
     ///////////////////////////////////
 
-    $sth = $pdo->prepare("SELECT * FROM get_kategooriad");
+    $sth = $pdo->prepare("SELECT * FROM kategooria ORDER BY id desc ");
     $sth->execute();
     $kategooriad = $sth->fetchAll();
 
@@ -163,10 +181,12 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             echo '<div class="container">
             <div class="kateg"><span class="vert">'.$k['nimi'].'</span></div>
                 <div class="cont" id = "'.$kategooria_id.'">
+                
+                
                     ';
 
         foreach($sisud as $s){
-            echo "<div class='sisu' id = ".$s['id'].">";
+            echo "<div class='sisu' id = p".$s['id'].">";
                     echo "<p class ='sisu_pealkiri'>".$s['pealkiri']."</p>";
                     echo "<p class ='sisu_autor'>".$s['autor']."</p>";
                     echo '<div class = "sisu_tekst">'.$s['sisu'].'</div>';
@@ -177,6 +197,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 
                     echo "</div>";
         }
+        
         echo '</div></div>';
     }
 

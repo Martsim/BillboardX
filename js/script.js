@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+	var postituse_id = "";
 	$('.fb-no-jump').prepend('<div class ="fb-login-button" data-scope = "public_profile,email" onlogin="checkLoginState();"></div>');
 
 	$('#postita_nupp').on('click', function(event){
@@ -6,10 +7,42 @@ $( document ).ready(function() {
 		document.getElementById('tume_taust').style.display='block';
 		event.preventDefault();
 	});
-	$('#sule_aken').on('click', function(){
+	$('#sule_aken').on('click', function(e){
 		document.getElementById('pop_up').style.display='none';
 		document.getElementById('tume_taust').style.display='none';
+		e.preventDefault();
 	});
+	$('#sule_aken2').on('click', function(e){
+		document.getElementById('pop_up2').style.display='none';
+		document.getElementById('tume_taust').style.display='none';
+		e.preventDefault();
+	});
+	//modal_2 ehk sisu modal
+	$('.sisu').on('click', function(){
+		document.getElementById('pop_up2').style.display='block';
+		document.getElementById('tume_taust').style.display='block';
+		$('#modal_pealkiri').text($(this).children('.sisu_pealkiri').text());
+		$('#modal_autor').text($(this).children('.sisu_autor').text());
+		$('#modal_sisu').text($(this).children('.sisu_tekst').text());
+		postituse_id = ($(this).attr('id')).slice(1);
+		lae_kommentaar(postituse_id);
+
+
+		//event.preventDefault();
+	});
+
+	$(".sisu_cont").draggable({ 
+	    cursor: "move",
+	    axis: "x", 
+	    containment: "cont",
+	    stop: function() {
+	      if(jQuery(".sisu_cont").position().left < 1)
+	          jQuery(".sisu_cont").css("left", "720px");
+	    }
+	});
+
+
+
 
 	$("#pop_up").submit(function(event){
 		var values = $(this).serialize();
@@ -104,6 +137,19 @@ $( document ).ready(function() {
 		});
 
 	});
+	$('#postita_kommentaar').click(function(event){
+		event.preventDefault()
+		var nupuid = postituse_id;
+		var sisu =  $("#modal_kommenteeri").val();
+		console.log(nupuid + sisu);
+		$.post( "controller/kommenteeri.php", { id: nupuid, kom_sisu: sisu }, function( data ) {
+			alert( data );
+		});
+
+		$("#modal_kommenteeri").val("");
+		lae_kommentaar(postituse_id);
+	});
+
 	
 	
 	$('#viewModal').on('show.bs.modal', function (event) {
@@ -150,16 +196,35 @@ $( document ).ready(function() {
 		});
 	});
 
+	function lae_kommentaar(post_id) {
+		var seediv = $("#modal_kommentaar");
+		seediv.html("Laen kommentaare...");
+		$.post("controller/lae_kommentaar.php", {id: post_id}, function (data) {
+			seediv.html("");
+			if (data.length > 2) {
+
+				$.each(JSON.parse(data), function (k, v) {
+					var autor = v['autor'];
+					seediv.append("<p class = kommentaar >" + v['autor'] + " : " + v['sisu'] + "</p>");
+
+				});
+			} else {
+				seediv.html("<p> Kommentaare pole</p>");
+			}
+		});
+	}
+
 	// NÖ push
 	push();
 	function push(){
 		setTimeout(function() {
 			$('.cont').each(function(){
 				kat = $(this).attr('id');
-				sisu = $(this).children().first().attr('id');
+				sisu = ($(this).children().first().attr('id')).slice(1);
 				var $see = $(this);
 
 				$.post("controller/push.php", {kat_id : kat, sisu_id: sisu}, function (data) {
+
 					try{
 						var json= JSON.parse(data);
 						json = json[0];
@@ -185,7 +250,7 @@ $( document ).ready(function() {
 				});
 			})
 			push();
-		}, 3500);
+		}, 5000);
 	}
 
 
