@@ -51,15 +51,17 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et" lang="et">
 <head>
-    <title>Infoorum</title>
+    <title>Infoorum - avaleht</title>
     <meta charset='utf-8'>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- Added cdn check.-->
-    <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
-    <script src="js/cdn.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/script.js"></script>
-    <script type="text/javascript" src="./fbapp/fb.js"></script>
+    <script async src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script async src="js/cdn.js"></script>
+    <script async src="js/jquery-ui.min.js"></script>
+    <script async src="js/script.js"></script>
+    <script async type="text/javascript" src="./fbapp/fb.js"></script>
 </head>
 <body>
 <?php //keele valimine
@@ -105,10 +107,10 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
         }
         echo "</select><br>
-                <label for='pealkiri'>". $xml->pealkiri->$keel ."</label><br>
-                <input type='text' name='pealkiri' placeholder='". $xml->pealkiri->$keel ."'><br>
+                <label>". $xml->pealkiri->$keel ."<br>
+                <input type='text' title = 'pealkiri' name='pealkiri' placeholder='". $xml->pealkiri->$keel ."'></label><br>
                 <label for='sisu_lisamine'>". $xml->sisu->$keel ."</label><br>
-                <textarea form='pop_up' name = 'sisu' id='sisu_lisamine' rows='4' cols='50'></textarea><div id='counter'>0</div><br>
+                <textarea form='pop_up' title = 'sisu' name = 'sisu' id='sisu_lisamine' rows='4' cols='50'></textarea><div id='counter'>0</div><br>
                 <input type='submit' value='". $xml->postita->$keel ."'><br>
 
             </form>";
@@ -139,7 +141,7 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
                 <p id = 'modal_kommentaar'></p>
                 ";
                 if (isset($_SESSION["melditud"]) && $_SESSION["melditud"] == true){
-                    echo "<textarea form='pop_up2' name = 'modal_komment' id='modal_kommenteeri' rows='2' cols='30'></textarea>
+                    echo "<textarea form='pop_up2' title = 'kommenteeri' name = 'modal_komment' id='modal_kommenteeri' rows='2' cols='30'></textarea>
                     <input type='submit' value='Kommenteeri' id='postita_kommentaar'><br>";
                 }
 
