@@ -147,18 +147,74 @@ kasuta kommentaare kui vaja -->
 		<en>If you are not a registered yet, please signup using "Register"</en>
 	</logimise_info>
 	
+	<kys1>
+	<et>Registreerisin kasutajaks, aga ei saa lehele siseneda.</et>
+	<en>I created an account, but I can not login.</en>
+	</kys1>
+	
+	<vas1>
+	<et>Registreerides saadetakse teile kinnitav kiri sisestatud aadressile. Peale kirjas olevale lingile vajutamist aktiveeritakse kasutaja.</et>
+	<en>After registering, a confirmation e-mail is sent to the given e-mail address. Upon clicking on the activation link within the mail, the account is activated.</en>
+	</vas1>
+	
+	<kys2>
+	<et>Probleemid foorumisse postitamisel.</et>
+	<en>Problems with posting to the forum.</en>
+	</kys2>
+
+	<vas2>
+	<et>Postitusel peab olema kindlasti pealkiri. Lisaks peab kasutaja olema sisse loginud. Enda varasemaid postitusi on võimalik kustutada vajutades vastavat nuppu postituse juures.</et>
+	<en>The post must have a title. The user must be logged in. You can delete one of Your previous posts by clicking on the button near the post.</en>
+	</vas2>
+
+	<kys3>
+	<et>Ma ei saa kommenteerida.</et>
+	<en>Problems with commenting.</en>
+	</kys3>
+
+	<vas3>
+	<et>Kommenteerimiseks peab olema sisse logitud. Tuleb avada postitus vajutades eelvaatel. Sisse logitud kasutaja näeb kommentaaride juures kasti ja selle kõrval nuppu kommenteeri.</et>
+	<en>In order to post a comment, the user must be logged in. After logging in, click on a post preview. A logged in user can see a white box and a button comment under other comments.</en>
+	</vas3>
 	
 	
 	
+	<!--  REGISTREERIMINE.PHP    -->
 	
+	<reg_head>
+	<et>Liitu Infoorumiga</et>
+	<en>Join Infoorum</en>
+	</reg_head>
 	
+	<reg_note>
+	<et>* Tärniga tähistatud väljad on kohustuslikud</et>
+	<en>Fields marked with * are important</en>
+	</reg_note>
 	
+	<reg_user>
+	<et>Kasutajanimi</et>
+	<en>Username</en>
+	</reg_user>
 	
+	<reg_pass>
+	<et>Parool</et>
+	<en>Password</en>
+	</reg_pass>
 	
+	<reg_pass2>
+	<et>Parool uuesti</et>
+	<en>Repeat password</en>
+	</reg_pass2>
 	
+	<reg_mail>
+	<et>Email</et>
+	<en>Email</en>
+	</reg_mail>
 	
-	
-	
+	<reg_submit>
+	<et>Registreeri</et>
+	<en>Register</en>
+	</reg_submit>
 	
 	
 	
