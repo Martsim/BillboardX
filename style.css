@@ -133,7 +133,7 @@ height:300px;
     overflow-y: hidden;
     border: 1px solid;
     display: flex;
-    height: 300px;
+    height: 350px;
 }
 .sisu_pealkiri{
     font-weight: bold;
@@ -269,3 +269,57 @@ footer{
 	color: white;
 	background: blue;
 }
+.kkkkys{
+	font-size: 16px;	
+}
+.kkkvas{
+	font-size: 14px;	
+}
+#kkkd{
+	height: 100%;
+	background-color: #0A64B3;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	
+}
+.kysdiv{
+	background-color: #E3E1FF;
+	padding-left: 25px;
+	border-radius: 10px;
+	width: 800px;
+	min-width: 400px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+}
+
+
+.registreerimine{
+	text-align:center;
+}
+
+#reg-vorm2{
+	float: none;
+}
+
+.reg-vorm{
+    align:center;
+}
+
+#reg-input{
+	width: 300px;
+	align: center;
+	margin-bottom: 10px;
+}
+
+#komm_pilt{
+    height: 2em
+    }
+
+
+
+
+
