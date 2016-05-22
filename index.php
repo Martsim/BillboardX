@@ -58,106 +58,18 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- Added cdn check.-->
     <script async src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script async src="js/cdn.js"></script>
+    <script src="js/cdn.js"></script>
     <script async src="js/jquery-ui.min.js"></script>
     <script async src="js/script.js"></script>
     <script async type="text/javascript" src="./fbapp/fb.js"></script>
 </head>
 <body>
-<?php //keele valimine
-    	if(isset($_COOKIE['keel'])) {
-    		$keel = $_COOKIE['keel'];
-		
-    	}else{
-    		$keel = "et";
-    	}
-    	$xml = simplexml_load_file("xml/keel.xml");
+
+<?php
+//päis ja lingid:
+require_once 'view/päis_partial.php';
+
 ?>
-<div id="päis">
-    <a id="logo" href="index.php">Infoorum</a>
-    
-    <!--Keelevalik-->
-    <form id="keele_vorm" method="get" action="/controller/keel_kypsisesse.php">
-    	<select name="keel" title="Keele valik" onchange="this.form.submit()">
-    		<option><?= $xml->keel->$keel ?></option>
-    		<option value="et">Eesti keeles</option>
-  		<option value="en">In English</option>
-	</select>
-    </form>
-    <!-- see on tume taust pop_up(modal)'i jaoks: -->
-    <div id="tume_taust"></div>
-
-    <?php
-    //kui on toimunud edukas sisselogimine, näita sisse loginud kasutajale:
-    if (isset($_SESSION["melditud"]) && $_SESSION["melditud"] == true){
-        //leian kõik kategooriad, salvestan array-na $tulemusse
-        $sth = $pdo->prepare("SELECT * FROM get_kategooriad_idni");
-        $sth->execute();
-        $tulemus = $sth->fetchAll();
-
-
-        echo "<div id = 'melditud'><div style = 'float: right;'>".$xml->logitud->$keel."<span id='kasutaja'>".$_SESSION['kasutaja']."</span> <a href='controller/logout.php'>".$xml->välja->$keel."</a></div>";
-        echo "<div id = 'postita_nupp'>".$xml->postita->$keel."</div></div>";
-
-        //Postitamise Modal
-        echo"<form id='pop_up'>
-                <a href='' id='sule_aken'>". $xml->sule->$keel ."</a><br>
-               <select name='kat_id'>";
-        foreach($tulemus as $t){
-            echo "<option value =".$t['id'].">". ucfirst($t['nimi']) ." </option>";
-        }
-        echo "</select><br>
-                <label>". $xml->pealkiri->$keel ."<br>
-                <input type='text' title = 'pealkiri' name='pealkiri' placeholder='". $xml->pealkiri->$keel ."'></label><br>
-                <label for='sisu_lisamine'>". $xml->sisu->$keel ."</label><br>
-                <textarea form='pop_up' title = 'sisu' name = 'sisu' id='sisu_lisamine' rows='4' cols='50'></textarea><div id='counter'>0</div><br>
-                <input type='submit' value='". $xml->postita->$keel ."'><br>
-
-            </form>";
-
-
-    }else{//Log-in form:
-        echo'
-        <form id="login_form" method="post" action="index.php">
-            <label for="kasutaja">'. $xml->kasutaja->$keel .': </label>
-            <input type="text" name="kasutaja" placeholder='. $xml->kasutaja->$keel.'  id="kasutaja">
-            <label for="parool">'. $xml->parool->$keel .': </label>
-            <input type="password" name="parool" placeholder='.$xml->parool->$keel.' id="parool">
-            <input type="submit" value="'. $xml->sisene->$keel .'">
-            <a href="view/regamine.php" >' .$xml->registreeru->$keel. '</a>
-            <div class ="fb-no-jump">
-            
-            </div>
-        </form>
-        ';
-    }
-    //Sisu laadimise modal
-    echo "<form id='pop_up2'>
-                <a href='' id='sule_aken2'>". $xml->sule->$keel ."</a><br>
-                <strong><p id='modal_pealkiri'></p></strong>
-                <em><p id='modal_autor'></p></em>
-                <p id='modal_sisu'></p>
-                <br>
-                <p id = 'modal_kommentaar'></p>
-                ";
-                if (isset($_SESSION["melditud"]) && $_SESSION["melditud"] == true){
-                    echo "<textarea form='pop_up2' title = 'kommenteeri' name = 'modal_komment' id='modal_kommenteeri' rows='2' cols='30'></textarea>
-                    <input type='submit' value='Kommenteeri' id='postita_kommentaar'><br>";
-                }
-
-            echo "</form>";
-
-    ?>
-</div>
-
-<div id="lingid">
-    <a href="index.php" ><?= $xml->kodu->$keel ?></a>
-    <a href="#" ><?= $xml->reeglid->$keel ?></a>
-    <a href="#" ><?= $xml->info->$keel ?></a>
-    <a href="#" ><?= $xml->kkk->$keel ?></a>
-    <a href="kontakt.php" ><?= $xml->kontakt->$keel ?></a>
-    <a href="anneta.php" ><?= $xml->anneta->$keel ?></a>
-</div>
 
 <div id="raam">
     <?php
@@ -183,14 +95,20 @@ if(!empty($_POST["kasutaja"]) && !empty($_POST["parool"])){
             echo '<div class="container">
             <div class="kateg"><span class="vert">'.$k['nimi'].'</span></div>
                 <div class="cont" id = "'.$kategooria_id.'">
-                
-                
-                    ';
+
+                 ';
 
         foreach($sisud as $s){
             echo "<div class='sisu' id = p".$s['id'].">";
                     echo "<p class ='sisu_pealkiri'>".$s['pealkiri']."</p>";
                     echo "<p class ='sisu_autor'>".$s['autor']."</p>";
+                    echo '<img src="comments.svg" class="komm_pilt" alt="comment">';
+                    //postituse kommentaaride loendur
+                    $sth = $pdo->prepare("SELECT id FROM kommentaar WHERE post_id = ?");
+                    $sth->execute([$s['id']]);
+                    echo " ".count($sth->fetchAll());
+
+
                     echo '<div class = "sisu_tekst">'.$s['sisu'].'</div>';
                     //case insensitive comparing(strcasecmp)
                     if(!empty($_SESSION["kasutaja"]) && strcasecmp ($_SESSION["kasutaja"], $s['autor']) == 0){
